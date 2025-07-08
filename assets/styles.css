@@ -1,3 +1,4 @@
 body {
-    background-color: white;
+    background-image: url(../assets/images/learning-lab-background-image.jpg);
+    background-size: cover;
 }

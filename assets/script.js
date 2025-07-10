@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const submitBtn = document.getElementById('submit-btn');
   const nextBtn = document.getElementById('next-section');
   const endMsg = document.getElementById('end-message');
+  
 
   // 2. If it's not a game page, exit
   if (!questionEl) return;
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let score = 0;
   let questionCount = 0;
   const maxQuestions = 5;
+  let questionHistory = [];
 
   // 5. Detect which game mode
   function getPageType() {
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let num1 = Math.floor(Math.random() * 10) + 1;
     let num2 = Math.floor(Math.random() * 10) + 1;
     
-
+    
     switch (mode) {
       case 'addition':
         correctAnswer = num1 + num2;
@@ -75,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
     answerEl.value = '';
     feedbackEl.textContent = '';
     feedbackEl.className = '';
+
+    questionHistory.push({ question: questionText, answer: correctAnswer });
   }
 
   // 7. When the user submits an answer
@@ -104,17 +108,14 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(generateQuestion, 1200);
   } else {
     setTimeout(() => {
-      questionEl.textContent = '';
-      feedbackEl.textContent = '';
-      answerEl.style.display = 'none';
-      submitBtn.style.display = 'none';
-      if (nextBtn) nextBtn.style.display = 'inline-block';
-      if (endMsg) endMsg.style.display = 'block';
-    }, 1500);
-  }
-});
+        
+        localStorage.setItem("mathQuestResults", JSON.stringify(questionHistory));
+        window.location.href = "results.html";
+      }, 1500);
+    }
+  });
 
-
-questionEl.textContent = "Get ready for your first question...";
-setTimeout(generateQuestion, 1000);
+  // 8. Start the first question after a short delay
+  questionEl.textContent = "Get ready for your first question...";
+  setTimeout(generateQuestion, 1000);
 });

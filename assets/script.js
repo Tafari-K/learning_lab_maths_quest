@@ -112,6 +112,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+questionEl.textContent = "Get ready for your first question...";
+setTimeout(generateQuestion, 1000);
+
+
   // 8. Start the first question
   generateQuestion();
 });

@@ -1,16 +1,39 @@
+// ✅ Run when the page is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
+
+  // ✅ Link to your game elements
   const questionEl = document.getElementById('question');
   const answerEl = document.getElementById('user-answer');
   const feedbackEl = document.getElementById('feedback');
   const scoreEl = document.getElementById('score');
   const submitBtn = document.getElementById('submit-btn');
-  const nextBtn = document.getElementById('next-section');
+  const nextBtn = document.getElementById('next-section'); // Optional extra button
 
-  if (!questionEl) return; // If on menu or welcome, skip this
+  if (!questionEl) return; // If not on a game page, stop here
 
+  // ✅ Feedback message options
+  const praiseMessages = [
+    "🎉 Yes, that’s correct!",
+    "👏 Great job!",
+    "🌟 You're getting it!",
+    "🙌 Keep it up!",
+    "💪 You're smashing it!"
+  ];
+
+  const retryMessages = [
+    "🤔 Can you try again?",
+    "🔄 Not quite, give it another go!",
+    "😅 Close, try once more!",
+    "🧠 Let’s think about that one again!"
+  ];
+
+  // ✅ Game variables
   let correctAnswer = 0;
   let score = 0;
+  let questionCount = 0;
+  const maxQuestions = 5;
 
+  // ✅ Detect which page this is (addition, etc.)
   function getPageType() {
     const path = window.location.pathname;
     if (path.includes('addition')) return 'addition';
@@ -20,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return null;
   }
 
+  // ✅ Generate a random question
   function generateQuestion() {
     const mode = getPageType();
     let num1 = Math.floor(Math.random() * 10) + 1;
@@ -31,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
         questionEl.textContent = `What is ${num1} + ${num2}?`;
         break;
       case 'subtraction':
-        // Ensure positive result
         if (num2 > num1) [num1, num2] = [num2, num1];
         correctAnswer = num1 - num2;
         questionEl.textContent = `What is ${num1} - ${num2}?`;
@@ -42,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         break;
       case 'division':
         correctAnswer = num1;
-        num1 = num1 * num2; // Make divisible
+        num1 = num1 * num2;
         questionEl.textContent = `What is ${num1} ÷ ${num2}?`;
         break;
     }
@@ -51,47 +74,34 @@ document.addEventListener('DOMContentLoaded', function () {
     feedbackEl.textContent = '';
   }
 
+  // ✅ Handle answer submission
   submitBtn.addEventListener('click', function () {
-    const praiseMessages = [
-  "🎉 Yes, that’s correct!",
-  "👏 Great job!",
-  "🌟 You're getting it!",
-  "🙌 Keep it up!",
-  "💪 You're smashing it!"
-];
+    const userAnswer = Number(answerEl.value);
+    questionCount++;
 
-const retryMessages = [
-  "🤔 Can you try again?",
-  "🔄 Not quite, give it another go!",
-  "😅 Close, try once more!",
-  "🧠 Let’s think about that one again!"
-];
+    if (userAnswer === correctAnswer) {
+      const praise = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
+      feedbackEl.textContent = praise;
+      score++;
+      scoreEl.textContent = `Score: ${score}`;
+    } else {
+      const retry = retryMessages[Math.floor(Math.random() * retryMessages.length)];
+      feedbackEl.textContent = retry;
+    }
 
-let questionCount = 0;
-const maxQuestions = 5; // Limit number of questions per round
+    if (questionCount < maxQuestions) {
+      setTimeout(generateQuestion, 1000);
+    } else {
+      setTimeout(() => {
+        questionEl.textContent = "🎉 Well done! You've completed this round.";
+        feedbackEl.textContent = '';
+        answerEl.style.display = 'none';
+        submitBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'inline-block'; // show next button if it's in HTML
+      }, 1500);
+    }
+  });
 
-submitBtn.addEventListener('click', function () {
-  const userAnswer = Number(answerEl.value);
-  questionCount++;
-
-  if (userAnswer === correctAnswer) {
-    const praise = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
-    feedbackEl.textContent = praise;
-    score++;
-    scoreEl.textContent = `Score: ${score}`;
-  } else {
-    const retry = retryMessages[Math.floor(Math.random() * retryMessages.length)];
-    feedbackEl.textContent = retry;
-  }
-
-  if (questionCount < maxQuestions) {
-    setTimeout(generateQuestion, 1000); // Wait 1s before next question
-  } else {
-    setTimeout(() => {
-      questionEl.textContent = "🎉 Well done! You've completed this round.";
-      feedbackEl.textContent = '';
-      answerEl.style.display = 'none';
-      submitBtn.style.display = 'none';
-    }, 1500);
-  }
+  // ✅ Start first question
+  generateQuestion();
 });

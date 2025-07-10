@@ -87,3 +87,18 @@ input:focus {
   margin-top: 20px;
   display: none;
 }
+
+
+/* Mascot image */
+.mascot {
+  width: 180px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}

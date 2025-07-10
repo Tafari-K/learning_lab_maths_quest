@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Results – Math Quest</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <h1>🎉 You Completed the Challenge!</h1>
+
+  <!-- Results from localStorage -->
+  <div id="results-list"></div>
+
+  <!-- Submission Form -->
+  <h2>Share Your Achievement</h2>
+  <form id="share-form" action="https://formdump.codeinstitute.net" method="POST">
+    <input type="text" name="player-name" id="player-name" placeholder="Enter your name" required />
+    <input type="hidden" name="game-summary" id="game-summary" />
+    <button type="submit">Submit Score</button>
+  </form>
+
+  <button onclick="location.href='menu.html'">⬅️ Back to Menu</button>
+
+  <script>
+    const resultsContainer = document.getElementById("results-list");
+    const stored = localStorage.getItem("mathQuestResults");
+    const gameSummaryField = document.getElementById("game-summary");
+
+    if (stored) {
+      const results = JSON.parse(stored);
+      const list = results.map((item, i) =>
+        `<p><strong>Q${i + 1}:</strong> ${item.question} → <em>${item.answer}</em></p>`
+      ).join("");
+      resultsContainer.innerHTML = list;
+
+      // Create a plain-text version for the hidden input
+      const summaryText = results.map((item, i) =>
+        `Q${i + 1}: ${item.question} → ${item.answer}`
+      ).join(" | ");
+
+      // Set hidden field value
+      gameSummaryField.value = summaryText;
+    }
+  </script>
+</body>
+</html>

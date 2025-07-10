@@ -98,21 +98,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Go to next or end
-    if (questionCount < maxQuestions) {
-      setTimeout(generateQuestion, 1200);
-    } else {
-      setTimeout(() => {
-        questionEl.textContent = '';
-        feedbackEl.textContent = '';
-        answerEl.style.display = 'none';
-        submitBtn.style.display = 'none';
-        if (nextBtn) nextBtn.style.display = 'inline-block';
-        if (endMsg) endMsg.style.display = 'block';
-      }, 1500);
-    }
-  });
+     if (questionCount < maxQuestions) {
+    setTimeout(generateQuestion, 1200);
+  } else {
+    setTimeout(() => {
+      questionEl.textContent = '';
+      feedbackEl.textContent = '';
+      answerEl.style.display = 'none';
+      submitBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'inline-block';
+      if (endMsg) endMsg.style.display = 'block';
+    }, 1500);
+  }
+});
+
 
 questionEl.textContent = "Get ready for your first question...";
 setTimeout(generateQuestion, 1000);
-
 });

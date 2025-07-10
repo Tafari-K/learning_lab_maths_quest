@@ -46,8 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
   // 6. Create a random question
   function generateQuestion() {
     const mode = getPageType();
+    console.log("Mode:", mode);
     let num1 = Math.floor(Math.random() * 10) + 1;
     let num2 = Math.floor(Math.random() * 10) + 1;
+    
 
     switch (mode) {
       case 'addition':

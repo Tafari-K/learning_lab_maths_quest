@@ -31,8 +31,10 @@ h1.h2 {
 /* Buttons */
 button {
   padding: 10px 20px;
+  display: block;
+  width: 90%;
   font-size: 1rem;
-  margin: 10px;
+  margin: 10px auto;
   border: none;
   border-radius: 10px;
   background-color: #4f46e5;
@@ -64,11 +66,12 @@ button:active {
 /* Input field */
 input[type="number"] {
   padding: 8px;
+  width: 90%;
   font-size: 1rem;
   border-radius: 5px;
   border: 2px solid #ccc;
   outline: none;
-  margin-top: 10px;
+  margin-top: 10px auto;
 }
 
 input:focus {

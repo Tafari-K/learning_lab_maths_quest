@@ -74,6 +74,42 @@ document.addEventListener('DOMContentLoaded', function () {
     feedbackEl.textContent = '';
   }
 
+  submitBtn.addEventListener('click', function () {
+  const userAnswer = Number(answerEl.value);
+  questionCount++;
+
+  // Reset styles
+  feedbackEl.className = '';
+  scoreEl.classList.remove('score-pulse');
+
+  if (userAnswer === correctAnswer) {
+    const praise = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
+    feedbackEl.textContent = praise;
+    feedbackEl.classList.add('correct');
+    score++;
+    scoreEl.textContent = `Score: ${score}`;
+    scoreEl.classList.add('score-pulse');
+  } else {
+    const retry = retryMessages[Math.floor(Math.random() * retryMessages.length)];
+    feedbackEl.textContent = retry;
+    feedbackEl.classList.add('incorrect');
+  }
+
+  if (questionCount < maxQuestions) {
+    setTimeout(generateQuestion, 1200);
+  } else {
+    setTimeout(() => {
+      questionEl.textContent = '';
+      feedbackEl.textContent = '';
+      answerEl.style.display = 'none';
+      submitBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'inline-block';
+      document.getElementById('end-message').style.display = 'block';
+    }, 1500);
+  }
+});
+
+
   // ✅ Handle answer submission
   submitBtn.addEventListener('click', function () {
     const userAnswer = Number(answerEl.value);

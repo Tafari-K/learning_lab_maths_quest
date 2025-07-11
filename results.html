@@ -47,14 +47,29 @@
       gameSummaryField.value = summaryText;
     }
 
-    const form = document.getElementById("share-form");
-    const nextSectionWrap = document.getElementById("next-section-wrap");
+    // ✅ Intercept the form and send via fetch instead of full page reload
+  const form = document.getElementById("share-form");
+  const nextSectionWrap = document.getElementById("next-section-wrap");
 
-    form.addEventListener("submit", function () {
-    // Let the form submit normally to FormDump
-    // But also show the "Continue" button immediately
-    nextSectionWrap.style.display = "block";
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Stop the page from reloading
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData
+    }).then(() => {
+      // ✅ After successful submission, show the next-section button
+     nextSectionWrap.style.display = "block";
+    const nextBtn = nextSectionWrap.querySelector("button");
+    nextBtn.textContent = "✅ Submitted! Continue";
+    form.querySelector("button[type='submit']").disabled = true;
+
+    }).catch(() => {
+      alert("There was a problem submitting your score. Please try again.");
     });
+  });
 
     
   </script>

@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const submitBtn = document.getElementById('submit-btn');
   const nextBtn = document.getElementById('next-section');
   const endMsg = document.getElementById('end-message');
-  
 
   // 2. If it's not a game page, exit
   if (!questionEl) return;
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const maxQuestions = 5;
   let questionHistory = [];
 
-  // 5. Detect which game mode
+  // 5. Detect which game mode based on filename
   function getPageType() {
     const path = window.location.pathname;
     if (path.includes('addition')) return 'addition';
@@ -45,48 +44,48 @@ document.addEventListener('DOMContentLoaded', function () {
     return null;
   }
 
-  // 6. Create a random question
+  // 6. Generate a new random question
   function generateQuestion() {
     const mode = getPageType();
-    console.log("Mode:", mode);
     let num1 = Math.floor(Math.random() * 10) + 1;
     let num2 = Math.floor(Math.random() * 10) + 1;
-    
-    
+    let questionText = '';
+
     switch (mode) {
       case 'addition':
         correctAnswer = num1 + num2;
-        questionEl.textContent = `What is ${num1} + ${num2}?`;
+        questionText = `What is ${num1} + ${num2}?`;
         break;
       case 'subtraction':
         if (num2 > num1) [num1, num2] = [num2, num1];
         correctAnswer = num1 - num2;
-        questionEl.textContent = `What is ${num1} - ${num2}?`;
+        questionText = `What is ${num1} - ${num2}?`;
         break;
       case 'multiplication':
         correctAnswer = num1 * num2;
-        questionEl.textContent = `What is ${num1} × ${num2}?`;
+        questionText = `What is ${num1} × ${num2}?`;
         break;
       case 'division':
         correctAnswer = num1;
         num1 = num1 * num2;
-        questionEl.textContent = `What is ${num1} ÷ ${num2}?`;
+        questionText = `What is ${num1} ÷ ${num2}?`;
         break;
     }
 
+    questionEl.textContent = questionText;
     answerEl.value = '';
     feedbackEl.textContent = '';
     feedbackEl.className = '';
 
+    // Save this question for the results page
     questionHistory.push({ question: questionText, answer: correctAnswer });
   }
 
-  // 7. When the user submits an answer
+  // 7. Handle answer submission
   submitBtn.addEventListener('click', function () {
     const userAnswer = Number(answerEl.value);
     questionCount++;
 
-    // Reset feedback styles
     feedbackEl.className = '';
     scoreEl.classList.remove('score-pulse');
 
@@ -103,19 +102,37 @@ document.addEventListener('DOMContentLoaded', function () {
       feedbackEl.classList.add('incorrect');
     }
 
-    // Go to next or end
-     if (questionCount < maxQuestions) {
-    setTimeout(generateQuestion, 1200);
-  } else {
-    setTimeout(() => {
-        
+    if (questionCount < maxQuestions) {
+      setTimeout(generateQuestion, 1200);
+    } else {
+      setTimeout(() => {
+        questionEl.textContent = '';
+        feedbackEl.textContent = '';
+        answerEl.style.display = 'none';
+        submitBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'inline-block';
+        if (endMsg) endMsg.style.display = 'block';
+
+        // ✅ Save current round
         localStorage.setItem("mathQuestResults", JSON.stringify(questionHistory));
+
+        // ✅ Update cumulative score
+        let totalScore = Number(localStorage.getItem("totalScore")) || 0;
+        let totalQuestions = Number(localStorage.getItem("totalQuestions")) || 0;
+
+        totalScore += score;
+        totalQuestions += maxQuestions;
+
+        localStorage.setItem("totalScore", totalScore);
+        localStorage.setItem("totalQuestions", totalQuestions);
+
+        // ✅ Go to results page
         window.location.href = "results.html";
       }, 1500);
     }
   });
 
-  // 8. Start the first question after a short delay
+  // 8. Start with a short delay
   questionEl.textContent = "Get ready for your first question...";
   setTimeout(generateQuestion, 1000);
 });

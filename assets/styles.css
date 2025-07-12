@@ -133,3 +133,51 @@ input:focus {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
+
+/* === Results Page Styling === */
+#results-list p {
+  margin: 6px 0;
+}
+
+#total-score {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 20px 0;
+  color: #4f46e5;
+}
+
+#next-section-wrap {
+  display: none;
+  margin-top: 20px;
+}
+
+form#share-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+form#share-form input[type="text"] {
+  padding: 10px;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+form#share-form button {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+form#share-form button:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+}

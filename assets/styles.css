@@ -181,3 +181,86 @@ form#share-form button:disabled {
   background-color: #a5b4fc;
   cursor: not-allowed;
 }
+/* Small Screens (max-width: 768px) === */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 1rem;
+    font-size: 16px;
+  }
+
+  h1, h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  button, input[type="text"] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #score, #feedback {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .progress-container {
+    width: 100%;
+    margin: 0 auto 20px auto;
+  }
+
+  form#share-form {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  form#share-form input[type="text"] {
+    width: 100%;
+  }
+}
+/* === Mascot Positioning === */
+.mascot {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 120px;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+/* ✅ On smaller screens, move it away from buttons */
+@media screen and (max-width: 768px) {
+  .mascot {
+    position: fixed;
+    bottom: 80px; /* push it up above buttons */
+    right: 10px;
+    width: 80px;
+    opacity: 0.9;
+    pointer-events: none; /* mascot won’t block taps */
+  }
+}
+
+/* larger screens*/
+@media screen and (min-width: 1200px) {
+  body {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .button-group {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .progress-container {
+    width: 80%;
+    margin: 0 auto 2rem auto;
+  }
+}
+

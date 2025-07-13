@@ -233,16 +233,28 @@ form#share-form button:disabled {
   transition: transform 0.3s ease;
 }
 
-/* ✅ On smaller screens, move it away from buttons */
+/* On smaller screens */
 @media screen and (max-width: 768px) {
   .mascot {
     position: fixed;
-    bottom: 80px; /* push it up above buttons */
+    bottom: 80px; 
     right: 10px;
     width: 80px;
     opacity: 0.9;
-    pointer-events: none; /* mascot won’t block taps */
+    pointer-events: none; 
   }
+}
+
+@media screen and (min-width: 768px) {
+  .mascot {
+    width: 160px;
+    bottom: 30px;
+    right: 30px;
+  }
+   button,
+  input[type="submit"] {
+    font-size: 1.2rem;
+    padding: 14px 28px;
 }
 
 /* larger screens*/

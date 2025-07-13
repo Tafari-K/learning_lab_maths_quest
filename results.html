@@ -28,24 +28,35 @@
     
   <script>
     const resultsContainer = document.getElementById("results-list");
-    const stored = localStorage.getItem("mathQuestResults");
-    const gameSummaryField = document.getElementById("game-summary");
+const stored = localStorage.getItem("mathQuestResults");
+const totalScore = localStorage.getItem("totalScore");
+const totalQuestions = localStorage.getItem("totalQuestions");
 
-    if (stored) {
-      const results = JSON.parse(stored);
-      const list = results.map((item, i) =>
-        `<p><strong>Q${i + 1}:</strong> ${item.question} → <em>${item.answer}</em></p>`
-      ).join("");
-      resultsContainer.innerHTML = list;
+if (stored) {
+  const results = JSON.parse(stored);
+  const correctAnswers = results.length;
+  const totalThisRound = 5;
 
-      // Create a plain-text version for the hidden input
-      const summaryText = results.map((item, i) =>
-        `Q${i + 1}: ${item.question} → ${item.answer}`
-      ).join(" | ");
+  const sectionScore = document.createElement("p");
+  sectionScore.innerHTML = `<strong>You scored ${correctAnswers} out of ${totalThisRound}!</strong>`;
+  sectionScore.style.fontSize = "1.2rem";
+  sectionScore.style.marginBottom = "1rem";
+  sectionScore.style.color = "#22c55e";
 
-      // Set hidden field value
-      gameSummaryField.value = summaryText;
-    }
+  resultsContainer.insertBefore(sectionScore, resultsContainer.firstChild);
+
+  const list = results.map((item, i) =>
+    `<p><strong>Q${i + 1}:</strong> ${item.question} → <em>${item.answer}</em></p>`
+  ).join("");
+  resultsContainer.innerHTML += list;
+
+  const summaryText = results.map((item, i) =>
+    `Q${i + 1}: ${item.question} → ${item.answer}`
+  ).join(" | ");
+
+  summaryInput.value = summaryText;
+}
+
 
     // ✅ Intercept the form and send via fetch instead of full page reload
   const form = document.getElementById("share-form");

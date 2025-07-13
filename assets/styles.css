@@ -30,12 +30,11 @@ h1.h2 {
 
 /* Buttons */
 button {
-  padding: 10px 20px;
+  padding: 15px 20px;
   display: block;
   width: 90%;
   font-size: 1rem;
   margin: 10px auto;
-  border: none;
   border-radius: 10px;
   background-color: #4f46e5;
   color: white;
@@ -152,7 +151,6 @@ input:focus {
 }
 
 form#share-form {
-  display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;

@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const submitBtn = document.getElementById('submit-btn');
   const nextBtn = document.getElementById('next-section');
   const endMsg = document.getElementById('end-message');
+  function getPageType() {
+    const type = localStorage.getItem('gameType');
+    if (!quizTitle) return type;
+    quizTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Challenge`;
+    return type;
+  }
 
   // 2. If it's not a game page, exit
   if (!questionEl) return;

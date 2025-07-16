@@ -7,13 +7,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const submitBtn = document.getElementById('submit-btn');
   const nextBtn = document.getElementById('next-section');
   const endMsg = document.getElementById('end-message');
+  const quizTitle = document.getElementById('game-title');
+
+  // 2. Get the game title from localStorage
   function getPageType() {
-    const type = localStorage.getItem('gameType');
+    const type = localStorage.getItem('game-title');
     if (!quizTitle) return type;
     quizTitle.textContent = `${type.charAt(0).toUpperCase() + type.slice(1)} Challenge`;
     return type;
   }
-
+  const mode = getPageType();
+  
   // 2. If it's not a game page, exit
   if (!questionEl) return;
 

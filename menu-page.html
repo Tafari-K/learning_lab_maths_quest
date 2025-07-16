@@ -9,16 +9,16 @@
 <body>
   <h1>Select Your Math Challenge</h1>
   <div class="button-group">
-    <button onclick="setGameType('addition')">➕ Addition</button>
-    <button onclick="setGameType('subtraction')">➖ Subtraction</button>
-    <button onclick="setGameType('multiplication')">✖️ Multiplication</button>
-    <button onclick="setGameType('division')">➗ Division</button>
+    <button onclick="setGameType('addition')"> Addition</button>
+    <button onclick="setGameType('subtraction')"> Subtraction</button>
+    <button onclick="setGameType('multiplication')">Multiplication</button>
+    <button onclick="setGameType('division')">Division</button>
   </div>
 
    <script>
     function setGameType(type) {
       localStorage.setItem('gameType', type);
-      window.location.href = 'game.html';
+      window.location.href = 'assets/game.html';
     }
   </script>
 </body>

@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/styles.css">
-    <title>Choose Your Mission</title>
+  <meta charset="UTF-8">
+  <title>Math Quest – Menu</title>
+  <link rel="stylesheet" href="assets/styles.css">
+ 
 </head>
 <body>
-    <h2>Select Your Mission</h2>
-    <div class="menu-page-btns">
-        <button href="game.html?mode=addition">Addition</button>
-        <button href="game.html?mode=division">Division</button>
-        <button href="game.html?mode=multiplication">Multiplication</button>
-        <button href="game.html?mode=subtraction">Subtraction</button>
-        <button class="how-to-btn" href="how-to-play.html">How to Play</button>
+  <h1>Select Your Math Challenge</h1>
+  <div class="button-group">
+    <button onclick="setGameType('addition')">➕ Addition</button>
+    <button onclick="setGameType('subtraction')">➖ Subtraction</button>
+    <button onclick="setGameType('multiplication')">✖️ Multiplication</button>
+    <button onclick="setGameType('division')">➗ Division</button>
+  </div>
 
-    </div>
-
-<footer>
-    <button id="menu-btn" onclick="location.href='index.html'"> Back to Main Page</button>
-</footer>
+   <script>
+    function setGameType(type) {
+      localStorage.setItem('gameType', type);
+      window.location.href = 'game.html';
+    }
+  </script>
 </body>
 </html>

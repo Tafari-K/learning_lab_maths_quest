@@ -32,10 +32,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let summaryText = '';
     for (let i = 0; i < results.length; i++) {
-      summaryText += `Q${i + 1}: ${results[i].question} ${results[i].answer}`;
-      if (i < results.length - 1) {
-        summaryText += ' | ';
-      }
+        const item = results[i];
+        const isCorrect = item.userAnswer === item.correctAnswer;
+        list += `<p><strong>Q${i + 1}:</strong> ${item.question} = <em>${item.userAnswer}</em> ${isCorrect ? '✅' : `❌ (Correct: ${item.correctAnswer})`}</p>`;
+}
+
     }
     summaryInput.value = summaryText;
   }

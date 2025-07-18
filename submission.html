@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Submit Your Score</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📨 Submit Your Score</h1>
+    
+    <p id="submission-summary">Loading your results...</p>
+
+    <form id="final-submit-form" action="https://formdump.codeinstitute.net" method="POST">
+      <label for="player-name">Your Name:</label>
+      <input type="text" name="player-name" id="player-name" placeholder="Enter your name" required />
+
+      <input type="hidden" name="score-summary" id="score-summary" />
+      
+      <button type="submit">🎯 Submit Final Score</button>
+    </form>
+
+    <div style="margin-top: 1rem;">
+      <button onclick="location.href='menu-page.html'">⬅️ Back to Menu</button>
+    </div>
+  </div>
+
+  <script src="assets/submission.js"></script>
+</body>
+</html>

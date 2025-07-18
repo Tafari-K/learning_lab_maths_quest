@@ -22,6 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   const mode = getPageType();
-  if (!mode) return; // Exit if no mode set
+  if (!mode) return; 
 
 });

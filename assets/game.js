@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     answerEl.value = '';
     feedbackEl.textContent = '';
     feedbackEl.className = '';
-    questionHistory.push({ question: questionText, answer: correctAnswer });
+    questionHistory.push({ question: questionText, userAnswer: userAnswer, correctAnswer: correctAnswer });
   }
 
   submitBtn.addEventListener('click', function () {

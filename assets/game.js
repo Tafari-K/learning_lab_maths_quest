@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!mode) return;
 
   function generateQuestion() {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
+    let num1 = Math.floor(Math.random() * 10) + 1;
+    let num2 = Math.floor(Math.random() * 10) + 1;
     let questionText = '';
 
     switch (mode) {
@@ -58,7 +58,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   submitBtn.addEventListener('click', function () {
-    const userAnswer = Number(answerEl.value);
+    const userInput = answerEl.value.trim();
+    if (userInput === '') {
+      feedbackEl.textContent = '⛔ Please enter an answer before submitting.';
+      feedbackEl.className = 'incorrect';
+      return;
+    }
+
+    const userAnswer = Number(userInput);
     questionCount++;
 
     if (userAnswer === correctAnswer) {
@@ -82,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nextBtn.style.display = 'inline-block';
         endMsg.style.display = 'block';
 
-   
+        // Store round data
         localStorage.setItem('mathQuestResults', JSON.stringify(questionHistory));
 
         let totalScore = Number(localStorage.getItem('totalScore')) || 0;
@@ -94,12 +101,12 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('totalScore', totalScore);
         localStorage.setItem('totalQuestions', totalQuestions);
 
-        
+        // Redirect to results page
         window.location.href = 'results.html';
       }, 1000);
     }
   });
 
-  questionEl.textContent = 'Question Loading...';
+  questionEl.textContent = 'Loading Question...';
   setTimeout(generateQuestion, 1000);
 });

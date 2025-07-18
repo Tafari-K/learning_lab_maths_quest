@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let list = '';
     for (let i = 0; i < results.length; i++) {
-      list += `<p><strong>Q${i + 1}:</strong> ${results[i].question} → <em>${results[i].answer}</em></p>`;
+      list += `<p><strong>Q${i + 1}:</strong> ${results[i].question}<em>${results[i].answer}</em></p>`;
     }
     resultsContainer.innerHTML += list;
 
     let summaryText = '';
     for (let i = 0; i < results.length; i++) {
-      summaryText += `Q${i + 1}: ${results[i].question} → ${results[i].answer}`;
+      summaryText += `Q${i + 1}: ${results[i].question} ${results[i].answer}`;
       if (i < results.length - 1) {
         summaryText += ' | ';
       }

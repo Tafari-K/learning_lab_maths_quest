@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const totalScoreEl = document.getElementById("total-score");
   const form = document.getElementById("share-form");
   const nextSectionWrap = document.getElementById("next-section-wrap");
-  const leaderboardContainer = document.getElementById("leaderboard");
 
   const stored = localStorage.getItem("mathQuestResults");
   const totalScore = localStorage.getItem("totalScore");
@@ -27,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let list = '';
     for (let i = 0; i < results.length; i++) {
-      list += `<p><strong>Q${i + 1}:</strong> ${results[i].question}<em>${results[i].answer}</em></p>`;
+      list += `<p><strong>Q${i + 1}:</strong> ${results[i].question} <em>${results[i].answer}</em></p>`;
     }
     resultsContainer.innerHTML += list;
 
@@ -48,15 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     const formData = new FormData(form);
-    const playerName = formData.get("player-name");
-    const summary = formData.get("game-summary");
 
-    // Save to local leaderboard
-    let leaderboard = JSON.parse(localStorage.getItem("mathQuestLeaderboard")) || [];
-    leaderboard.push({ name: playerName, summary: summary });
-    localStorage.setItem("mathQuestLeaderboard", JSON.stringify(leaderboard));
-
-    // Submit form
     fetch(form.action, {
       method: "POST",
       body: formData
@@ -65,29 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
       const nextBtn = nextSectionWrap.querySelector("button");
       nextBtn.textContent = "✅ Submitted! Continue";
       form.querySelector("button[type='submit']").disabled = true;
-      renderLeaderboard();
     }).catch(() => {
       alert("There was a problem submitting your score. Please try again.");
     });
   });
-
-  function renderLeaderboard() {
-    if (!leaderboardContainer) return;
-    leaderboardContainer.innerHTML = '<h3>🏆 Leaderboard</h3>';
-    const leaderboard = JSON.parse(localStorage.getItem("mathQuestLeaderboard")) || [];
-    if (leaderboard.length === 0) {
-      leaderboardContainer.innerHTML += '<p>No scores submitted yet.</p>';
-      return;
-    }
-
-    const ul = document.createElement("ul");
-    for (let i = 0; i < leaderboard.length; i++) {
-      const li = document.createElement("li");
-      li.textContent = `${leaderboard[i].name}: ${leaderboard[i].summary}`;
-      ul.appendChild(li);
-    }
-    leaderboardContainer.appendChild(ul);
-  }
-
-  renderLeaderboard();
 });

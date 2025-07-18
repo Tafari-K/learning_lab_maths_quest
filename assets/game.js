@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!mode) return;
 
   function generateQuestion() {
-    let num1 = Math.floor(Math.random() * 10) + 1;
-    let num2 = Math.floor(Math.random() * 10) + 1;
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
     let questionText = '';
 
     switch (mode) {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nextBtn.style.display = 'inline-block';
         endMsg.style.display = 'block';
 
-        // Store round data
+   
         localStorage.setItem('mathQuestResults', JSON.stringify(questionHistory));
 
         let totalScore = Number(localStorage.getItem('totalScore')) || 0;
@@ -94,12 +94,12 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('totalScore', totalScore);
         localStorage.setItem('totalQuestions', totalQuestions);
 
-        // Redirect to results page
+        
         window.location.href = 'results.html';
       }, 1000);
     }
   });
 
-  questionEl.textContent = 'Get ready for your first question...';
+  questionEl.textContent = 'Question Loading...';
   setTimeout(generateQuestion, 1000);
 });

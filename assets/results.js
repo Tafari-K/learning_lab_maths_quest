@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const totalScoreEl = document.getElementById("total-score");
   const form = document.getElementById("share-form");
   const nextSectionWrap = document.getElementById("next-section-wrap");
+  const redirectMsg = document.getElementById("redirect-msg");
 
   const stored = localStorage.getItem("mathQuestResults");
   const totalScore = localStorage.getItem("totalScore");
@@ -26,17 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let list = '';
     for (let i = 0; i < results.length; i++) {
-      list += `<p><strong>Q${i + 1}:</strong> ${results[i].question} <em>${results[i].answer}</em></p>`;
+      list += `<p><strong>Q${i + 1}:</strong> ${results[i].question} → <em>${results[i].answer}</em></p>`;
     }
     resultsContainer.innerHTML += list;
 
     let summaryText = '';
     for (let i = 0; i < results.length; i++) {
-        const item = results[i];
-        const isCorrect = item.userAnswer === item.correctAnswer;
-        list += `<p><strong>Q${i + 1}:</strong> ${item.question} = <em>${item.userAnswer}</em> ${isCorrect ? '✅' : `❌ (Correct: ${item.correctAnswer})`}</p>`;
-}
-
+      summaryText += `Q${i + 1}: ${results[i].question} → ${results[i].answer}`;
+      if (i < results.length - 1) {
+        summaryText += ' | ';
+      }
     }
     summaryInput.value = summaryText;
   }
@@ -53,8 +53,20 @@ document.addEventListener('DOMContentLoaded', function () {
       method: "POST",
       body: formData
     }).then(() => {
-      window.location.href = "submission.html";
+      const submitButton = form.querySelector("button[type='submit']");
+      submitButton.textContent = "✅ Submitted!";
+      submitButton.disabled = true;
+
+      nextSectionWrap.style.display = "block";
+      if (redirectMsg) {
+        redirectMsg.style.display = "block";
+      }
+
+      setTimeout(() => {
+        window.location.href = "submission.html";
+      }, 3000);
     }).catch(() => {
       alert("There was a problem submitting your score. Please try again.");
     });
   });
+});

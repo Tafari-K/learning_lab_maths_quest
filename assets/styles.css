@@ -11,6 +11,10 @@ h1.h2 {
     margin-bottom: 20px;
 }
 
+div{
+  text-align: left;
+}
+
 .progress-container {
   background-color: #e5e7eb; 
   border-radius: 10px;

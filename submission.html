@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>Submit Your Score</title>
   <link rel="stylesheet" href="assets/styles.css" />
+  <meta http-equiv="refresh" content="4;url=results.html" />
+
 </head>
 <body>
   <div class="container">
@@ -13,7 +15,11 @@
 
     <form id="final-submit-form" action="https://formdump.codeinstitute.net" method="POST">
       <label for="player-name">Your Name:</label>
+
       <input type="text" name="player-name" id="player-name" placeholder="Enter your name" required />
+      <p>You’ll be redirected back to your results shortly...</p>
+      <p>If not, <a href="results.html">click here</a>.</p>
+
 
       <input type="hidden" name="score-summary" id="score-summary" />
       

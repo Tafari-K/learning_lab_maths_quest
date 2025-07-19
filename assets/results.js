@@ -53,12 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
       method: "POST",
       body: formData
     }).then(() => {
-      nextSectionWrap.style.display = "block";
-      const nextBtn = nextSectionWrap.querySelector("button");
-      nextBtn.textContent = "✅ Submitted! Continue";
-      form.querySelector("button[type='submit']").disabled = true;
+      window.location.href = "submission.html";
     }).catch(() => {
       alert("There was a problem submitting your score. Please try again.");
     });
   });
-});

@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
   const message = document.getElementById("submission-message");
-  const scoreSummary = document.getElementById("submission-summary");
-  const continueBtn = document.getElementById("continue-btn");
-  const submitBtn = document.getElementById("submission-button");
-
   const totalScore = localStorage.getItem("totalScore") || 0;
   const totalQuestions = localStorage.getItem("totalQuestions") || 0;
 
-  scoreSummary.textContent = `🎯 Your total score is ${totalScore} out of ${totalQuestions}!`;
-  submitBtn.textContent = "✅ Submitted!";
-  submitBtn.disabled = true;
+  if (message) {
+    message.innerHTML = `🎉 Score submitted successfully!<br><strong>Total Score: ${totalScore} out of ${totalQuestions}</strong>`;
+  }
 
-  continueBtn.addEventListener("click", function () {
-    window.location.href = "game.html";
-  });
+  const submitButton = document.getElementById("submitted-button");
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "✅ Submitted";
+  }
+
+  const continueButton = document.getElementById("continue-button");
+  if (continueButton) {
+    continueButton.style.display = "block";
+  }
 });

@@ -90,18 +90,26 @@ document.addEventListener('DOMContentLoaded', function () {
         endMsg.style.display = 'block';
 
         // Store round data
-        localStorage.setItem('mathQuestResults', JSON.stringify(questionHistory));
+      questionHistory.push({
+      question: questionText, 
+      answer: userAnswer,
+      correct: userAnswer === correctAnswer
+    });
 
-        let totalScore = Number(localStorage.getItem('totalScore')) || 0;
-        let totalQuestions = Number(localStorage.getItem('totalQuestions')) || 0;
+      // Save current session results
+      localStorage.setItem("mathQuestResults", JSON.stringify(questionHistory));
 
-        totalScore += score;
-        totalQuestions += maxQuestions;
+      // Update total score tracking
+      let totalScore = Number(localStorage.getItem("totalScore")) || 0;
+      let totalQuestions = Number(localStorage.getItem("totalQuestions")) || 0;
 
-        localStorage.setItem('totalScore', totalScore);
-        localStorage.setItem('totalQuestions', totalQuestions);
+      totalScore += score;
+      totalQuestions += maxQuestions;
 
-        // Redirect to results page
+      localStorage.setItem("totalScore", totalScore);
+      localStorage.setItem("totalQuestions", totalQuestions);
+
+      // Redirect to results page
         window.location.href = 'results.html';
       }, 1000);
     }

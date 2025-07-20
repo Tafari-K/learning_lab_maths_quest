@@ -1,20 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const summaryDisplay = document.getElementById("submission-summary");
-    const scoreSummaryInput = document.getElementById("score-summary");
+  const message = document.getElementById("submission-message");
+  const scoreSummary = document.getElementById("submission-summary");
+  const continueBtn = document.getElementById("continue-btn");
+  const submitBtn = document.getElementById("submission-button");
 
-    const stored = localStorage.getItem("mathQuestREsults");
-    if (stored) {
-        const results = JSON.parse(stored);
-        let formatted = '';
+  const totalScore = localStorage.getItem("totalScore") || 0;
+  const totalQuestions = localStorage.getItem("totalQuestions") || 0;
 
-        for (let i = 0; i < results.length; i++) {
-            formatted += 'Q${i + 1}: ${results[i].question} = ${results[i].answer}';
-            if (i < results.length - 1) formatted += ' | ';
-        }
+  scoreSummary.textContent = `🎯 Your total score is ${totalScore} out of ${totalQuestions}!`;
+  submitBtn.textContent = "✅ Submitted!";
+  submitBtn.disabled = true;
 
-        summaryDisplay.textContent = 'Summary: ${formatted}';
-        scoreSummaryInput.value = formatted;
-    } else {
-        summaryDisplay.textContent = "No score data found.";
-    }
+  continueBtn.addEventListener("click", function () {
+    window.location.href = "game.html";
+  });
 });

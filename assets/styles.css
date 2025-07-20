@@ -124,12 +124,17 @@ input:focus {
 
 
 /* Mascot image */
-.mascot {
-  width: 180px;
-  position: absolute;
+.mascot-img {
+  position: fixed;
   bottom: 20px;
   right: 20px;
-  animation: float 3s ease-in-out infinite;
+  width: 100px;
+  z-index: 10;
+  transition: transform 0.3s ease-in-out;
+}
+
+.mascot-img:hover {
+  transform: scale(1.05);
 }
 
 @keyframes float {
@@ -226,14 +231,12 @@ form#share-form button:disabled {
   }
 }
 /* === Mascot Positioning === */
-.mascot {
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
-  width: 120px;
-  z-index: 1;
-  transition: transform 0.3s ease;
-}
+  .mascot-img {
+    width: 80px;
+    bottom: 10px;
+    right: 10px;
+  }
+
 
 /* On smaller screens */
 @media screen and (max-width: 768px) {

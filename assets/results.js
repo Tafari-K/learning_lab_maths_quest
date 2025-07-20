@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!window.location.pathname.includes('results.html')) return;
 
   const resultsContainer = document.getElementById("results-list");
+  const summaryInput = document.getElementById("game-summary");
   const totalScoreEl = document.getElementById("total-score");
+  const form = document.getElementById("share-form");
+  const nextSectionWrap = document.getElementById("next-section-wrap");
+  const redirectMsg = document.getElementById("redirect-msg");
 
   const stored = localStorage.getItem("mathQuestResults");
   const totalScore = localStorage.getItem("totalScore");
@@ -15,13 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const sectionScore = document.createElement("p");
     sectionScore.innerHTML = `<strong>You scored ${correctAnswers} out of ${totalThisRound}!</strong>`;
-    sectionScore.style.fontSize = "1.2rem";
+    sectionScore.style.fontSize = "1.5rem";
     sectionScore.style.marginBottom = "1rem";
     sectionScore.style.color = "#22c55e";
+    sectionScore.style.textAlign = "center"; // Centered score
 
     resultsContainer.insertBefore(sectionScore, resultsContainer.firstChild);
-
-     resultsContainer.insertBefore(sectionScore, resultsContainer.firstChild);
 
     let list = '';
     for (let i = 0; i < results.length; i++) {
@@ -41,29 +44,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (totalScore && totalQuestions && totalScoreEl) {
     totalScoreEl.textContent = `🧠 Total Score: ${totalScore} out of ${totalQuestions} correct`;
-  }
-});
-
-
-// ✅ FILE: assets/submission.js
-
-document.addEventListener('DOMContentLoaded', function () {
-  const message = document.getElementById("submission-message");
-  const totalScore = localStorage.getItem("totalScore") || 0;
-  const totalQuestions = localStorage.getItem("totalQuestions") || 0;
-
-  if (message) {
-    message.innerHTML = `🎉 Score submitted successfully!<br><strong>Total Score: ${totalScore} out of ${totalQuestions}</strong>`;
-  }
-
-  const submitButton = document.getElementById("submitted-button");
-  if (submitButton) {
-    submitButton.disabled = true;
-    submitButton.textContent = "✅ Submitted";
-  }
-
-  const continueButton = document.getElementById("continue-button");
-  if (continueButton) {
-    continueButton.style.display = "block";
   }
 });

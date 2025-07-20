@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
     answerEl.value = '';
     feedbackEl.textContent = '';
     feedbackEl.className = '';
-    questionHistory.push({ question: questionText, userAnswer: userAnswer, correctAnswer: correctAnswer });
   }
 
   submitBtn.addEventListener('click', function () {
@@ -78,6 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
       feedbackEl.classList.add('incorrect');
     }
 
+    questionHistory.push({
+      question: questionEl.textContent,
+      answer: userAnswer,
+      correct: userAnswer === correctAnswer
+    });
+
     if (questionCount < maxQuestions) {
       setTimeout(generateQuestion, 1000);
     } else {
@@ -89,27 +94,17 @@ document.addEventListener('DOMContentLoaded', function () {
         nextBtn.style.display = 'inline-block';
         endMsg.style.display = 'block';
 
-        // Store round data
-      questionHistory.push({
-      question: questionText, 
-      answer: userAnswer,
-      correct: userAnswer === correctAnswer
-    });
+        localStorage.setItem("mathQuestResults", JSON.stringify(questionHistory));
 
-      // Save current session results
-      localStorage.setItem("mathQuestResults", JSON.stringify(questionHistory));
+        let totalScore = Number(localStorage.getItem("totalScore")) || 0;
+        let totalQuestions = Number(localStorage.getItem("totalQuestions")) || 0;
 
-      // Update total score tracking
-      let totalScore = Number(localStorage.getItem("totalScore")) || 0;
-      let totalQuestions = Number(localStorage.getItem("totalQuestions")) || 0;
+        totalScore += score;
+        totalQuestions += maxQuestions;
 
-      totalScore += score;
-      totalQuestions += maxQuestions;
+        localStorage.setItem("totalScore", totalScore);
+        localStorage.setItem("totalQuestions", totalQuestions);
 
-      localStorage.setItem("totalScore", totalScore);
-      localStorage.setItem("totalQuestions", totalQuestions);
-
-      // Redirect to results page
         window.location.href = 'results.html';
       }, 1000);
     }

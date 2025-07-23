@@ -87,26 +87,25 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(generateQuestion, 1000);
     } else {
       setTimeout(() => {
-        questionEl.textContent = '';
-        feedbackEl.textContent = '';
-        answerEl.style.display = 'none';
-        submitBtn.style.display = 'none';
-        nextBtn.style.display = 'inline-block';
-        endMsg.style.display = 'block';
+      questionEl.textContent = '';
+      feedbackEl.textContent = '';
+      answerEl.style.display = 'none';
+      submitBtn.style.display = 'none';
+      nextBtn.style.display = 'inline-block';
+      endMsg.style.display = 'block';
 
-        localStorage.setItem("mathQuestResults", JSON.stringify(questionHistory));
+  // ✅ Save current category score
+  let scores = JSON.parse(localStorage.getItem('scores')) || {};
+  scores[mode] = {
+    score: score,
+    outOf: maxQuestions
+  };
+  localStorage.setItem('scores', JSON.stringify(scores));
 
-        let totalScore = Number(localStorage.getItem("totalScore")) || 0;
-        let totalQuestions = Number(localStorage.getItem("totalQuestions")) || 0;
+  // Redirect to results page
+  window.location.href = 'results.html';
+}, 1000);
 
-        totalScore += score;
-        totalQuestions += maxQuestions;
-
-        localStorage.setItem("totalScore", totalScore);
-        localStorage.setItem("totalQuestions", totalQuestions);
-
-        window.location.href = 'results.html';
-      }, 1000);
     }
   });
 

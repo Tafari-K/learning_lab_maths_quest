@@ -98,7 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
   let scores = JSON.parse(localStorage.getItem('scores')) || {};
   scores[mode] = {
     score: score,
-    outOf: maxQuestions
+    outOf: maxQuestions,
+    completed: true
   };
   localStorage.setItem('scores', JSON.stringify(scores));
 

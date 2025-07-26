@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!window.location.pathname.includes('results.html')) return;
 
   const resultsContainer = document.getElementById("results-list");
-  const summaryInput = document.getElementById("game-summary");
   const totalScoreEl = document.getElementById("total-score");
-  const nextSectionWrap = document.getElementById("next-section-wrap");
-  const redirectMsg = document.getElementById("redirect-msg");
+  const finalScoreWrap = document.getElementById("final-score-wrap");
+  const submitFinalBtn = document.getElementById("submit-final");
+  const resetBtn = document.getElementById("reset-btn");
 
   const stored = localStorage.getItem("mathQuestResults");
   const totalScore = localStorage.getItem("totalScore");
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
     sectionScore.style.marginBottom = "1rem";
     sectionScore.style.color = "#22c55e";
     sectionScore.style.textAlign = "center";
-
     resultsContainer.insertBefore(sectionScore, resultsContainer.firstChild);
 
     let list = '';
@@ -31,38 +30,27 @@ document.addEventListener('DOMContentLoaded', function () {
       list += `<p><strong>${lastCategory} Q${i + 1}:</strong> ${results[i].question} → <em>${results[i].answer}</em> ${results[i].correct ? '✅' : '❌'}</p>`;
     }
     resultsContainer.innerHTML += list;
-
-    let summaryText = '';
-    for (let i = 0; i < results.length; i++) {
-      summaryText += `Q${i + 1}: ${results[i].question} → ${results[i].answer}`;
-      if (i < results.length - 1) {
-        summaryText += ' | ';
-      }
-    }
-
-  if (summaryInput) summaryInput.value = summaryText;
   }
 
   if (totalScore && totalQuestions && totalScoreEl) {
     totalScoreEl.textContent = `🧠 Total Score: ${totalScore} out of ${totalQuestions} correct`;
   }
-  const allDone = ['addition', 'subtraction', 'multiplication', 'division'].every(cat => scores[cat]);
-  if (allDone && finalSubmitWrap) {
-    finalSubmitWrap.style.display = 'block';
-  }
 
-  const finalSubmitBtn = document.getElementById("submit-final-score");
-  if (finalSubmitBtn) {
-    finalSubmitBtn.addEventListener("click", function () {
-      finalSubmitBtn.textContent = "✅ Score Submitted!";
-      finalSubmitBtn.disabled = true;
+  const scores = JSON.parse(localStorage.getItem("scores")) || {};
+  const categories = ['addition', 'subtraction', 'multiplication', 'division'];
+  const allCompleted = categories.every(cat => scores[cat]);
+
+  if (allCompleted && finalScoreWrap) {
+    finalScoreWrap.style.display = 'block';
+
+    submitFinalBtn.addEventListener('click', () => {
+      submitFinalBtn.disabled = true;
+      submitFinalBtn.textContent = "✅ Score Submitted!";
     });
-  }
 
-  if (resetBtn) {
-    resetBtn.addEventListener("click", function () {
+    resetBtn.addEventListener('click', () => {
       localStorage.clear();
-      window.location.href = "index.html";
+      window.location.href = "menu-page.html";
     });
   }
 });

@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
     completed: true
   };
   localStorage.setItem('scores', JSON.stringify(scores));
+  localStorage.setItem("lastCompletedCategory", mode);
 
   // Redirect to results page
   window.location.href = 'results.html';

@@ -39,10 +39,30 @@ document.addEventListener('DOMContentLoaded', function () {
         summaryText += ' | ';
       }
     }
-    if (summaryInput) summaryInput.value = summaryText;
+
+  if (summaryInput) summaryInput.value = summaryText;
   }
 
   if (totalScore && totalQuestions && totalScoreEl) {
     totalScoreEl.textContent = `🧠 Total Score: ${totalScore} out of ${totalQuestions} correct`;
+  }
+  const allDone = ['addition', 'subtraction', 'multiplication', 'division'].every(cat => scores[cat]);
+  if (allDone && finalSubmitWrap) {
+    finalSubmitWrap.style.display = 'block';
+  }
+
+  const finalSubmitBtn = document.getElementById("submit-final-score");
+  if (finalSubmitBtn) {
+    finalSubmitBtn.addEventListener("click", function () {
+      finalSubmitBtn.textContent = "✅ Score Submitted!";
+      finalSubmitBtn.disabled = true;
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", function () {
+      localStorage.clear();
+      window.location.href = "index.html";
+    });
   }
 });

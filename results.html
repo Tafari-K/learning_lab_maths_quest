@@ -25,16 +25,10 @@
     </div>
   </div>
 
-  <!-- Submission Form -->
-  <h2>Share Your Achievement</h2>
-    <form id="share-form" action="https://formdump.codeinstitute.net" method="POST">
-      <input type="text" name="player-name" id="player-name" placeholder="Enter your name" required />
-      <input type="hidden" name="game-summary" id="game-summary" />
-      <button type="submit">Submit Score</button>
-    </form>
-  <h2>Leaderboard</h2>
-  <div id="leaderboard" class="leaderboard"></div>
-
+  <div class="input-group">
+    <label for="player-name">Name:</label>
+    <input type="text" id="player-name" placeholder="Enter your name">
+  </div>
 
   <!-- after form is submitted -->
   <div id="next-section-wrap">

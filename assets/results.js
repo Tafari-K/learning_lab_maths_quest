@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const correctAnswers = results.filter(r => r.correct).length;
     const totalThisRound = results.length;
 
+    //display score from last challenge
     const sectionScore = document.createElement("p");
     sectionScore.innerHTML = `<strong>${lastCategory.charAt(0).toUpperCase() + lastCategory.slice(1)} Results: You scored ${correctAnswers} out of ${totalThisRound}!</strong>`;
     sectionScore.style.fontSize = "1.5rem";
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sectionScore.style.textAlign = "center";
     resultsContainer.insertBefore(sectionScore, resultsContainer.firstChild);
 
+    //List Questions and answers
     let list = '';
     for (let i = 0; i < results.length; i++) {
       list += `<p><strong>${lastCategory} Q${i + 1}:</strong> ${results[i].question} → <em>${results[i].answer}</em> ${results[i].correct ? '✅' : '❌'}</p>`;
@@ -32,10 +34,13 @@ document.addEventListener('DOMContentLoaded', function () {
     resultsContainer.innerHTML += list;
   }
 
+  //Total scores
+
   if (totalScore && totalQuestions && totalScoreEl) {
     totalScoreEl.textContent = `🧠 Total Score: ${totalScore} out of ${totalQuestions} correct`;
   }
 
+  //Check challenges are complete
   const scores = JSON.parse(localStorage.getItem("scores")) || {};
   const categories = ['addition', 'subtraction', 'multiplication', 'division'];
   const allCompleted = categories.every(cat => scores[cat]);

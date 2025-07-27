@@ -12,6 +12,19 @@
   <!-- Results from localStorage -->
   <div id="results-list"></div>
 
+  <!-- Total score display-->
+   <div id="total-score" class="score-summary"></div>
+
+  <!--Final score Modal-->
+  <div id="final-modal" class="modal">
+    <div class="modal-content">
+      <h2> 🎯 All Challenges Completed!</h2>
+      <p> You've finished all 4 categories. Brilliant job!</p>
+      <button id="submit-final-score">🏁 Submit Final Score</button>
+      <button id="reset-btn">🔁 Back to Home</button>
+    </div>
+  </div>
+
   <!-- Submission Form -->
   <h2>Share Your Achievement</h2>
     <form id="share-form" action="https://formdump.codeinstitute.net" method="POST">
@@ -26,11 +39,6 @@
   <!-- after form is submitted -->
   <div id="next-section-wrap">
     <button onclick="location.href='menu-page.html'">➡️ Continue to Next Challenge</button>
-  </div>
-
-  <div id="final-submit-wrap" style="display:none; text-align:center; margin-top:2rem;">
-    <button id="submit-final-score">🏁 Submit Final Score</button>
-    <button id="reset-btn">🔁 Back to Home</button>
   </div>
 
   <!-- Mascot -->

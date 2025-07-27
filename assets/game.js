@@ -84,29 +84,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     if (questionCount < maxQuestions) {
-      setTimeout(generateQuestion, 1000);
-    } else {
       setTimeout(() => {
-      questionEl.textContent = '';
-      feedbackEl.textContent = '';
-      answerEl.style.display = 'none';
-      submitBtn.style.display = 'none';
-      nextBtn.style.display = 'inline-block';
-      endMsg.style.display = 'block';
+        questionEl.textContent = '';
+        feedbackEl.textContent = '';
+        answerEl.style.display = 'none';
+        submitBtn.style.display = 'none';
+        nextBtn.style.display = 'inline-block';
+        endMsg.style.display = 'block';
 
-  // ✅ Save current category score
-  let scores = JSON.parse(localStorage.getItem('scores')) || {};
-  scores[mode] = {
-    score: score,
-    outOf: maxQuestions,
-    completed: true
-  };
-  localStorage.setItem('scores', JSON.stringify(scores));
-  localStorage.setItem("lastCompletedCategory", mode);
+  // Save current category score
+    let scores = JSON.parse(localStorage.getItem('scores')) || {};
+    scores[mode] = {
+      score: score,
+      outOf: maxQuestions
+    };
+    localStorage.setItem('scores', JSON.stringify(scores));
 
-  // Redirect to results page
-  window.location.href = 'results.html';
-}, 1000);
+    let totalScore = 0;
+    let totalQuestions = 0;
+    for (let key in scores) {
+      totalScore += scores[key].score;
+      totalQuestions += scores[key].outOf;
+    }
+    localStorage.setItem("totalScore", totalScore);
+    localStorage.setItem("totalQuestions", totalQuestions);
+
+    // Save last completed category
+    localStorage.setItem("lastCompletedCategory", mode);
+
+    // Store question history for results page
+    localStorage.setItem("mathQuestResults", JSON.stringify(questionHistory));
+
+    // Redirect
+    window.location.href = 'results.html';
+    }, 1000);
 
     }
   });

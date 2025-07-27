@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = 'results.html';
     }, 1000);
 
+    
     }
   });
 
